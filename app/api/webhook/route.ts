@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
-    );
+    );  
 
     if (!session?.metadata?.userId) {
       return new NextResponse("User id is required", { status: 400 });
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
     await prismadb.userSubscription.update({
       where: {
-        id: session?.metadata?.userId, // Assuming id is the unique identifier
+        id: session?.metadata?.userId, 
       },
       data: {
         stripePriceId: subscription.items.data[0].price.id,
